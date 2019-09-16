@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var rects = [{x: 5, y: 5, w: 290, h: 140},
+            {x: 30, y: 30, w: 230, h: 90},
+            {x: 60, y: 60, w: 170, h: 40}];
+// #1
+ctx.beginPath();
+ctx.lineWidth = "1";
+ctx.rect(5, 5, 290, 140);
+ctx.stroke();
+
+// #2
+ctx.beginPath();
+ctx.lineWidth = "1";
+ctx.rect(30, 30, 230, 90);
+ctx.stroke();
+
+// #3
+ctx.beginPath();
+ctx.lineWidth = "1";
+ctx.rect(60, 60, 170, 40);
+ctx.stroke();
+
+c.addEventListener('click', (e) => {
+  const pos = {
+    x: e.clientX,
+    y: e.clientY
+  };
+  var i = collides(rects,e.clientX,e.clientY);
+  
+  if(i === 0) console.log("Div 1")
+  else if(i === 1) console.log("Div 2")
+  else if(i === 2) console.log("Div 3")
+});
+
+function collides(rects, x, y) {
+    var isCollision = false;
+    for (var i = 0, len = rects.length; i < len; i++) {
+        var left = rects[i].x, right = rects[i].x+rects[i].w;
+        var top = rects[i].y, bottom = rects[i].y+rects[i].h;
+        if (right >= x
+            && left <= x
+            && bottom >= y
+            && top <= y) {
+            isCollision = i;
+        }
+    }
+    return isCollision;
+}
+</script> 
+
+</body>
+</html>
